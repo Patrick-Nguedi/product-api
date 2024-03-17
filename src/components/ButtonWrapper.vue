@@ -1,6 +1,6 @@
 <template>
   <button
-    :data-test="cta"
+    :data-test="label"
     :disabled="disabled || isLoading"
     :class="[
       'font-bold outline-none text-xs flex justify-center items-center rounded px-2 py-1',
@@ -9,13 +9,13 @@
     ]"
   >
     <span class="loader" v-if="isLoading"></span>
-    <slot v-else name="content" :cta="cta">{{ cta }}</slot>
+    <slot v-else name="content" :label="label">{{ label }}</slot>
   </button>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  cta: string;
+  label: string;
   theme: string;
   disabled?: boolean;
   isLoading?: boolean;

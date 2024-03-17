@@ -18,16 +18,16 @@
         <div>{{ brand.name }}</div>
       </div>
       <div class="flex gap-2 items-center">
-        <TwButton
+        <ButtonWrapper
           @click="changeOpenEditModalState"
           :disabled="isPerformDelete"
-          :cta="t('edit')"
+          :label="t('edit')"
           :theme="THEME.BLUE"
         />
-        <TwButton
+        <ButtonWrapper
           :is-loading="isPerformDelete"
           @click="deleteBrand"
-          :cta="t('delete')"
+          :label="t('delete')"
           :theme="THEME.RED"
         />
       </div>
@@ -45,7 +45,7 @@
 import EditBrand from "@/components/EditBrand.vue";
 import InLoading from "@/components/InLoading.vue";
 import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
-import TwButton from "@/components/TwButton.vue";
+import ButtonWrapper from "@/components/ButtonWrapper.vue";
 import { NullableBrand, type Brand } from "@/domain/brand";
 import { useApiStore } from "@/stores/api";
 import { THEME } from "@/utils/enum";

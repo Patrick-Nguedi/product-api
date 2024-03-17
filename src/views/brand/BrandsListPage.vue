@@ -12,10 +12,10 @@
         </span>
         <span class="text-sm font-light">{{ t("description") }}</span>
       </h2>
-      <TwButton
+      <ButtonWrapper
         class="text-sm py-2"
         :theme="THEME.BLUE"
-        :cta="t('addProduct')"
+        :label="t('addProduct')"
         @click="shouldDisplayAddModal = true"
       />
     </div>

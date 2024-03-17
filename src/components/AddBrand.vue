@@ -1,10 +1,39 @@
+<template>
+  <ModalWrapper>
+    <section class="bg-white rounded-xl flex flex-col w-[90%] max-w-[500px]">
+      <section
+        class="font-semibold flex flex-col p-4 border-b border-dashed border-gray-200"
+      >
+        <CloseButton class="self-end" @click="close" />
+        <div class="text-lg">{{ t("formTitle") }}</div>
+      </section>
+      <section class="p-5 flex flex-col gap-4">
+        <TextField v-model="brand.name" :label="t('title')" />
+        <TextareaField v-model="brand.description" :label="t('description')" />
+        <div class="flex gap-2 justify-end items-center">
+          <ButtonWrapper
+            :label="t('cancel')"
+            :theme="THEME.BORDER_BLUE"
+            @click="close"
+          />
+          <ButtonWrapper
+            :label="t('create')"
+            :theme="THEME.BLUE"
+            @click="createBrand"
+          />
+        </div>
+      </section>
+    </section>
+  </ModalWrapper>
+</template>
+
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { ref, type Ref } from "vue";
 
 import { THEME } from "@/utils/enum";
 
-import TwButton from "@/components/TwButton.vue";
+import ButtonWrapper from "@/components/ButtonWrapper.vue";
 import TextField from "@/components/TextField.vue";
 import TextareaField from "@/components/TextareaField.vue";
 import CloseButton from "@/components/CloseButton.vue";
@@ -58,32 +87,3 @@ const createBrand = async (): Promise<void> => {
   isLoading.value = false;
 };
 </script>
-
-<template>
-  <ModalWrapper>
-    <section class="bg-white rounded-xl flex flex-col w-[90%] max-w-[500px]">
-      <section
-        class="font-semibold flex flex-col p-4 border-b border-dashed border-gray-200"
-      >
-        <CloseButton class="self-end" @click="close" />
-        <div class="text-lg">{{ t("formTitle") }}</div>
-      </section>
-      <section class="p-5 flex flex-col gap-4">
-        <TextField v-model="brand.name" :label="t('title')" />
-        <TextareaField v-model="brand.description" :label="t('description')" />
-        <div class="flex gap-2 justify-end items-center">
-          <TwButton
-            :cta="t('cancel')"
-            :theme="THEME.BORDER_BLUE"
-            @click="close"
-          />
-          <TwButton
-            :cta="t('create')"
-            :theme="THEME.BLUE"
-            @click="createBrand"
-          />
-        </div>
-      </section>
-    </section>
-  </ModalWrapper>
-</template>

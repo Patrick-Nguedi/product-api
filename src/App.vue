@@ -36,7 +36,7 @@ const { t } = useI18n({
 <template>
   <section>
     <header
-      class="py-2 divide-x text-gray-900 cursor-pointer font-thin divide-gray-400 flex gap-4 items-center justify-center"
+      class="py-2 sticky top-4 mt-4 z-20 bg-gray-50 divide-x text-gray-900 cursor-pointer font-thin divide-gray-400 flex gap-4 items-center justify-center"
       ref="navBar"
     >
       <span
