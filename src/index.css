@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dp-font-size: 14px;
+  --spinner-top-border-color: #D1D1D6;
+  --spinner-border-color: #1C1C1E;
+  --spinner-size: 14px;
+}
+
+@layer base {
+    * {
+        @apply p-0 m-0 box-border;
+    }
+
+    .scroll {
+        @apply overflow-y-auto;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        @apply bg-gray-50 rounded-[20px];
+    }
+
+    .scroll::-webkit-scrollbar-track {
+        @apply rounded-[20px] bg-gray-20;
+    }
+
+    .scroll::-webkit-scrollbar {
+        @apply w-[3px] rounded-[20px];
+    }
+}
