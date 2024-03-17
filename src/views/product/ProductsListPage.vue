@@ -1,34 +1,35 @@
 <template>
-  <div class="p-10">
+  <div class="py-10 px-5">
     <AddProduct
       @close="shouldDisplayAddModal = false"
       @refresh="fetchProductsList"
       v-if="shouldDisplayAddModal"
     />
-    <div class="flex justify-between items-start">
-      <h2 class="flex flex-col gap-0.5">
+    <div class="flex flex-col gap-y-4 pb-4 lg:flex-row lg:justify-between lg:items-start">
+      <h2 class="flex flex-col gap-2">
         <span class="text-xl text-gray-900 font-bold">
           {{ t("products") }}
         </span>
         <span class="text-sm font-light">{{ t("description") }}</span>
       </h2>
-      <TwButton
-        class="text-sm py-2"
+      <ButtonWrapper
+        class="text-sm py-2 w-[30%] lg:w-fit self-end"
         :theme="THEME.BLUE"
-        :cta="t('addProduct')"
+        :label="t('addProduct')"
         @click="shouldDisplayAddModal = true"
       />
     </div>
     <InLoading v-if="isLoading" />
     <div
       v-else-if="products.length > 0"
-      class="max-w-[1920px] m-auto grid grid-cols-2 md:grid-cols-3 lg:grid-col-4 xl:grid-col-5 gap-2"
+      class="max-w-[1920px] m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-col-4 xl:grid-col-5 gap-2"
     >
       <ProductCard
         v-for="product in products"
         :key="product.id"
         :product="product"
         :callback="goToProductDetails"
+        :data-test="`${product.id}-product`"
       />
     </div>
     <EmptyList v-else />
@@ -38,7 +39,7 @@
 <script setup lang="ts">
 import AddProduct from "@/components/AddProduct.vue";
 import InLoading from "@/components/InLoading.vue";
-import TwButton from "@/components/TwButton.vue";
+import ButtonWrapper from "@/components/ButtonWrapper.vue";
 import type { Product } from "@/domain/product";
 import { useApiStore } from "@/stores/api";
 import { THEME } from "@/utils/enum";

@@ -3,7 +3,7 @@
     <div>
       <img :src="path" class="object-scale-down" />
     </div> 
-    <span class="text-blue-900 font-thin font-sans text-2xl">{{ t(description) }}</span>
+    <span data-test="empty-description" class="text-blue-900 font-thin font-sans text-2xl">{{ t(description) }}</span>
   </div>
 </template>
 

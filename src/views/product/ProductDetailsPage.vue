@@ -18,16 +18,16 @@
         <div>{{ product.name }}</div>
       </div>
       <div class="flex gap-2 items-center">
-        <TwButton
+        <ButtonWrapper
           @click="changeOpenEditModalState"
           :disabled="isPerformDelete"
-          :cta="t('edit')"
+          :label="t('edit')"
           :theme="THEME.BLUE"
         />
-        <TwButton
+        <ButtonWrapper
           @click="deleteProduct"
           :is-loading="isPerformDelete"
-          :cta="t('delete')"
+          :label="t('delete')"
           :theme="THEME.RED"
         />
       </div>
@@ -63,7 +63,7 @@
 import EditProduct from "@/components/EditProduct.vue";
 import InLoading from "@/components/InLoading.vue";
 import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
-import TwButton from "@/components/TwButton.vue";
+import ButtonWrapper from "@/components/ButtonWrapper.vue";
 import { NullableProduct, Product } from "@/domain/product";
 import { useApiStore } from "@/stores/api";
 import { getLocalDateTime } from "@/utils/clock";
