@@ -1,17 +1,18 @@
 
-import { utilsMocks } from "../../utils/stubs";
+import { utilsMocks } from "../../../utils/stubs";
 
 const {
   stubProductsList,
-  stubProductDetails,
   assertProductDetailsHas,
+  stubProductDetails,
+  useMobileViewport,
 } = utilsMocks();
 
 const productId = "ffb243e4-f52a-4ed8-9f9c-000690ddc319";
 
 describe("Product details", () => {
-
     it("should display the procuct details successfully", () => {
+        useMobileViewport();
         stubProductsList();
         cy.visit("/");
         cy.wait("@products-list");

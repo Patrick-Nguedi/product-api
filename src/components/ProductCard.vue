@@ -1,7 +1,7 @@
 <template>
   <section
     @click="callback(product.id)"
-    class="rounded-lg p-4 bg-white space-y-4 divide divide-y border hover:shadow hover:border-blue-500 cursor-pointer"
+    class="rounded-lg p-4 bg-white space-y-4 divide divide-y border hover:shadow-sm hover:border-blue-500 cursor-pointer"
   >
     <div>
       <div class="flex gap-x-2 items-center">

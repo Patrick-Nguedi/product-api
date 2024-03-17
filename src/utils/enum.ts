@@ -10,7 +10,7 @@ export enum THEME {
 
 export enum DATE_FORMAT {
   YEAR_MONTH_DAY = "YYYY-MM-DD",
-  DATE_TIME = "YYYY-MM-DD h:mm A",
+  DATE_TIME = "dddd, MMMM D, YYYY h:mm A",
   DAY_MONTH_YEAR = "DD/MM/YYYY",
   YEAR = "YYYY",
 }
