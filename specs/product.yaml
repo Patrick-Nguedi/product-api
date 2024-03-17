@@ -1,0 +1,310 @@
+openapi: 3.0.3
+info:
+  title: Product Rest API
+  description: All Product Rest API End Points
+  version: 2024-12-03
+tags:
+  - name: Product
+    description: Everything about the Products
+paths:
+  /products:
+    get:
+      tags:
+        - Product
+      summary: get all products
+      description: use to get the list of available products
+      operationId: getAllProducts
+      security:
+        - oAuth:
+            - product:read:all
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
+  /product:
+    post:
+      tags:
+        - Product
+      summary: create product
+      description: use to add a new product
+      operationId: createProduct
+      security:
+        - oAuth:
+          - product:create
+      requestBody:
+        description: Data need to perfom the creation of product
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductDTO'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+  /product/{productId}:
+    get:
+      tags:
+        - Product
+      summary: Get Product by id
+      description: use to retreive a product base its id
+      operationId: getProductById
+      security:
+        - oAuth:
+            - product:read
+      parameters:
+        - name: productId
+          in: path
+          description: product ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+    put:
+      tags:
+        - Product
+      summary: update a Product
+      description: update a Product
+      operationId: editProduct
+      security:
+        - oAuth:
+            - product:edit
+      parameters:
+        - name: productId
+          in: path
+          description: product ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Product content that need to be update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        201:
+          description: successful operation
+    delete:
+      tags:
+        - Product
+      summary: Delete product by id
+      description: Delete product by id
+      operationId: deleteProductById
+      security:
+        - oAuth:
+            - product:edit
+      parameters:
+        - name: productId
+          in: path
+          description: The id of the product to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: successful operation
+  /brands:
+    get:
+      tags:
+        - Brand
+      summary: get all Brands
+      description: use to get all brands
+      operationId: getAllBrands
+      security:
+        - oAuth:
+            - brand:read:all
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BrandDTO'
+  /brand:
+    post:
+      tags:
+        - Brand
+      summary: create a brand
+      description: use to add a new brand
+      operationId: createBrand
+      security:
+        - oAuth:
+            - brand:create
+      requestBody:
+        description: Data need to perfom the creation of brand
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBrandDTO'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid           
+  /brand/{brandId}:
+    get:
+      tags:
+        - Brand
+      summary: Get Brand by id
+      description: use to retreive a brand base its id
+      operationId: getBrandById
+      security:
+        - oAuth:
+            - brand:read
+      parameters:
+        - name: brandId
+          in: path
+          description: brand ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandDTO'
+    put:
+      tags:
+        - Brand
+      summary: update a Brand
+      description: update a Brand
+      operationId: editBrand
+      security:
+        - oAuth:
+            - brand:edit
+      parameters:
+        - name: brandId
+          in: path
+          description: brand ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: brand content that need to be update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandDTO'
+      responses:
+        201:
+          description: successful operation
+    delete:
+      tags:
+        - Product
+      summary: Delete brand by id
+      description: Delete brand by id
+      operationId: deleteBrandById
+      security:
+        - oAuth:
+            - brand:edit
+      parameters:
+        - name: brandId
+          in: path
+          description: The id of the brand to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: successful operation
+components:
+  securitySchemes:
+    oAuth:
+      type: oauth2
+      description: This API uses OAuth 2 with the Authorization Code grant flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.oauth.product.cm
+          tokenUrl: https://token.oauth.product.cm
+          scopes:
+            demo: demo
+  schemas:
+    AddProductDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: product name
+        brand:
+          $ref: '#/components/schemas/BrandDTO'
+        description:
+          type: string
+          description: short description of product
+    AddBrandDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: brand name
+        description:
+          type: string
+          description: brand description   
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: product identifier
+        name:
+          type: string
+          description: product name
+        brand:
+          $ref: '#/components/schemas/BrandDTO'
+        description:
+          type: string
+          description: short description of product
+        createdAt:
+          type: string
+          format: date
+          description:  when the product has been registered
+        editionDates:
+          type: Array
+          items:
+            type: string
+            format: date
+    BrandDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: brand identifier
+        name:
+          type: string
+          description: brand name
+        description:
+          type: string
+          description: brand description     
