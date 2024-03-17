@@ -9,13 +9,16 @@ export const utilsMocks = () => {
   };
 
   const stubProductsList = () => {
-    cy.intercept({
-      url: "/products",
-      method: "GET",
-  }, {
-      statusCode: 200,
-      body: products,
-  }).as("products-list");
+    cy.intercept(
+      {
+        url: "/products",
+        method: "GET",
+      }, 
+      {
+        statusCode: 200,
+        body: products,
+      },
+    ).as("products-list");
   };
 
   const stubProductAdd = () => {
@@ -40,15 +43,30 @@ export const utilsMocks = () => {
         statusCode: 200,
         body: products[0],
       },
-    );
+    ).as("product-details");
+  };
+
+  const stubBrandsList = () => {
+    cy.intercept(
+      {
+        url: "/brands",
+        method: "GET",
+      }, 
+      {
+        statusCode: 200,
+        body: brands,
+      },
+    ).as("brand-list");
   };
 
   return {
     useMobileViewport,
     stubProductsList,
+    stubBrandsList,
     stubProductAdd,
     stubProductDetails,
-    assertProductListHas
+    assertProductListHas,
+    assertProductDetailsHas,
   };
 };
 
@@ -57,6 +75,7 @@ type Product = {
   name: string;
   brand: string;
   description: string;
+  createdAt?: string;
 };
 const assertProductListHas = (product: Product): void => {
   cy.get("[data-test$='-product']");
@@ -71,4 +90,20 @@ const assertProductListHas = (product: Product): void => {
       product.description
     );
   });
+};
+
+const assertProductDetailsHas = (product: Product): void => {
+    cy.get("[data-test='product-name']").should("have.text", product.name);
+    cy.get("[data-test='product-brand']").should(
+      "have.text",
+      product.brand
+    );
+    cy.get("[data-test='product-createdAt']").should(
+      "have.text",
+      product.createdAt
+    );
+    cy.get("[data-test='product-description']").should(
+      "have.text",
+      product.description
+    );
 };

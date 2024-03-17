@@ -1,5 +1,5 @@
 <template>
-  <div class="py-10 px-5">
+  <div class="py-10 px-5 md:px-10">
     <AddProduct
       @close="shouldDisplayAddModal = false"
       @refresh="fetchProductsList"
@@ -22,7 +22,7 @@
     <InLoading v-if="isLoading" />
     <div
       v-else-if="products.length > 0"
-      class="max-w-[1920px] m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-col-4 xl:grid-col-5 gap-2"
+      class="max-w-[1920px] m-auto grid grid-cols-1 md:grid-cols-3 lg:grid-col-4 xl:grid-col-5 gap-2 lg:gap-5"
     >
       <ProductCard
         v-for="product in products"
